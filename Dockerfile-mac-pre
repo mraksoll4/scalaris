@@ -28,7 +28,6 @@ RUN apt update \
 
 ENV PROJECTDIR=/opt/scalaris-project/scalaris
 ENV TEMP=/opt/scalaris-project/scalaris/depends
-ENV DEPENDS=/opt/scalaris-project/scalaris
 ENV DISTDIR=/opt/scalaris-project/dist
 ENV HOST=x86_64-apple-darwin14
 
@@ -38,7 +37,6 @@ RUN mkdir -p $TEMP \
   && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-not-buildet-mac-1.0.1.tar.gz \
   && [ "$(printf '0eaac2a0f2c30265774a200bda28b0c3c062ede7fcac3279f474e7853320413c depends-not-buildet-mac-1.0.1.tar.gz' | sha256sum -c)" = "depends-not-buildet-mac-1.0.1.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
   && tar xzf depends-not-buildet-mac-1.0.1.tar.gz \
-  && mv depends/ $DEPENDS \
   && rm depends-not-buildet-mac-1.0.1.tar.gz
 
 WORKDIR /opt/scalaris-project/scalaris
