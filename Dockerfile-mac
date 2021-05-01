@@ -34,8 +34,8 @@ ENV HOST=x86_64-apple-darwin14
 # Download depends
 RUN mkdir -p $PROJECTDIR \
   && cd $PROJECTDIR \
-  && wget -nv https://s3.us-east-2.amazonaws.com/devbuilds.blocknetprotocol.com/depends/depends-v4.2.0-mac-bionic.tar.gz \
-  && [ "$(printf 'f1c92dbbcc4f2e05e5965a7031993e8e0f6e38fee987f30e98ae9a65c7d255b9 depends-v4.2.0-mac-bionic.tar.gz' | sha256sum -c)" = "depends-v4.2.0-mac-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
+  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-mac-bionic.tar.gz \
+  && [ "$(printf '7a0508f0e1bdb44cc86ce589da628264790b391f59f5159fcfb89e360c30f9b4 depends-v1.0.1-mac-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-mac-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
 
 # Copy source files
 COPY . $PROJECTDIR/
@@ -44,7 +44,7 @@ COPY . $PROJECTDIR/
 RUN mkdir -p $DISTDIR \
   && cd $PROJECTDIR \
   && rm -r $BASEPREFIX \
-  && tar xzf depends-v4.2.0-mac-bionic.tar.gz \
+  && tar xzf depends-v1.0.1-mac-bionic.tar.gz \
   && chmod +x ./autogen.sh; sync \
   && ./autogen.sh \
   && CONFIG_SITE=$BASEPREFIX/$HOST/share/config.site ./configure CFLAGS="-g3 -O0" CXXFLAGS="-g3 -O0" --with-gui=qt5 --enable-debug --prefix=/ \

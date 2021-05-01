@@ -32,8 +32,8 @@ ENV HOST=x86_64-pc-linux-gnu
 # Download depends
 RUN mkdir -p $PROJECTDIR \
   && cd $PROJECTDIR \
-  && wget -nv https://s3.us-east-2.amazonaws.com/devbuilds.blocknetprotocol.com/depends/depends-v4.2.0-lin-bionic.tar.gz \
-  && [ "$(printf '547e4bdabc132b189cc78d6a12093f4476b6a49dc293b8371f2a046f6c3ecdb9 depends-v4.2.0-lin-bionic.tar.gz' | sha256sum -c)" = "depends-v4.2.0-lin-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
+  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-lin-bionic.tar.gz \
+  && [ "$(printf '25b55f9d5628ee9719f89202007d15ec9af5a9f9cd0e348cf6270e9e4bf5e022 depends-v1.0.1-lin-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-lin-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
 
 # Copy source files
 COPY . $PROJECTDIR/
@@ -42,7 +42,7 @@ COPY . $PROJECTDIR/
 RUN mkdir -p $DISTDIR \
   && cd $PROJECTDIR \
   && rm -r $BASEPREFIX \
-  && tar xzf depends-v4.2.0-lin-bionic.tar.gz \
+  && tar xzf depends-v1.0.1-lin-bionic.tar.gz \
   && chmod +x ./autogen.sh; sync \
   && ./autogen.sh \
   && CONFIG_SITE=$BASEPREFIX/$HOST/share/config.site ./configure CC=gcc-8 CXX=g++-8 CFLAGS="-g3 -O0" CXXFLAGS="-g3 -O0" --enable-debug --prefix=/ \
