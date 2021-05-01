@@ -1,8 +1,8 @@
 build_linux:
   stage: build
-  image: blocknetdx/devbuilds:gitlab-linux
+  image: scalarisproject/devbuilds:gitlab-linux
   script:
-    - "export PROJECTDIR=/opt/blocknetdx/blocknet"
+    - "export PROJECTDIR=/opt/scalaris-project/scalaris"
     - "export BASEPREFIX=$PROJECTDIR/depends"
     - "export BASEPREFIX_CACHE=/proj/depends-cache"
     - "export DISTDIR=$PROJECTDIR/dist"
@@ -26,9 +26,9 @@ build_linux:
 
 build_win:
   stage: build
-  image: blocknetdx/devbuilds:gitlab-win
+  image: scalarisproject/devbuilds:gitlab-win
   script:
-    - "export PROJECTDIR=/opt/blocknetdx/blocknet"
+    - "export PROJECTDIR=/opt/scalaris-project/scalaris"
     - "export BASEPREFIX=$PROJECTDIR/depends"
     - "export BASEPREFIX_CACHE=/proj/depends-cache"
     - "export DISTDIR=$PROJECTDIR/dist"
@@ -54,9 +54,9 @@ build_win:
 
 build_mac:
   stage: build
-  image: blocknetdx/devbuilds:gitlab-mac
+  image: scalarisproject/devbuilds:gitlab-mac
   script:
-    - "export PROJECTDIR=/opt/blocknetdx/blocknet"
+    - "export PROJECTDIR=/opt/scalaris-project/scalaris"
     - "export BASEPREFIX=$PROJECTDIR/depends"
     - "export BASEPREFIX_CACHE=/proj/depends-cache"
     - "export DISTDIR=$PROJECTDIR/dist"
