@@ -28,7 +28,7 @@ RUN apt update \
 
 ENV PROJECTDIR=/opt/scalaris-project/scalaris
 ENV TEMP=/opt/scalaris-project/scalaris/depends
-ENV DEPENDS=/opt/scalaris-project/scalaris/depends
+ENV DEPENDS=/opt/scalaris-project/scalaris
 ENV DISTDIR=/opt/scalaris-project/dist
 ENV HOST=x86_64-apple-darwin14
 
