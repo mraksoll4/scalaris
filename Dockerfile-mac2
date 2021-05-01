@@ -16,29 +16,30 @@ RUN add-apt-repository ppa:bitcoin/bitcoin \
      build-essential libtool autotools-dev bsdmainutils \
      libevent-dev autoconf automake pkg-config libssl-dev \
      libdb4.8-dev libdb4.8++-dev \
+     librsvg2-bin libtiff-tools bsdmainutils cmake imagemagick \
+     libcap-dev libz-dev libbz2-dev python-setuptools \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# mingw
+# Install llvm
 RUN apt update \
   && apt install -y --no-install-recommends \
-     g++-mingw-w64-x86-64 nsis zip \
-  && update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix \
+     llvm \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV PROJECTDIR=/opt/scalaris-project/scalaris
 ENV TEMP=/proj
 ENV DEPENDS=/proj/depends-cache
 ENV DISTDIR=/opt/scalaris-project/dist
-ENV HOST=x86_64-w64-mingw32
+ENV HOST=x86_64-apple-darwin14
 
 # Download depends
 RUN mkdir -p $TEMP \
   && cd $TEMP \
-  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-win-bionic.tar.gz \
-  && [ "$(printf '567e615322ba1b257ff9f3fc87d34ede53f0f88f200f6322ecb79e86b1d9d757 depends-v1.0.1-win-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-win-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
-  && tar xzf depends-v1.0.1-win-bionic.tar.gz \
+  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-mac-bionic.tar.gz \
+  && [ "$(printf '9114cae2b514cd5d44692384a5b7564174196fde6399b3bb9a26fba7c3fcb312 depends-v1.0.1-mac-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-mac-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
+  && tar xzf depends-v1.0.1-mac-bionic.tar.gz \
   && mv depends/ $DEPENDS \
-  && rm depends-v1.0.1-win-bionic.tar.gz
+  && rm depends-v1.0.1-mac-bionic.tar.gz
 
 WORKDIR /opt/scalaris-project/scalaris
 

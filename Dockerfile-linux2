@@ -18,27 +18,26 @@ RUN add-apt-repository ppa:bitcoin/bitcoin \
      libdb4.8-dev libdb4.8++-dev \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# mingw
+# gcc8
 RUN apt update \
   && apt install -y --no-install-recommends \
-     g++-mingw-w64-x86-64 nsis zip \
-  && update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix \
+     g++-8-multilib gcc-8-multilib binutils-gold \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV PROJECTDIR=/opt/scalaris-project/scalaris
 ENV TEMP=/proj
 ENV DEPENDS=/proj/depends-cache
 ENV DISTDIR=/opt/scalaris-project/dist
-ENV HOST=x86_64-w64-mingw32
+ENV HOST=x86_64-pc-linux-gnu
 
 # Download depends
 RUN mkdir -p $TEMP \
   && cd $TEMP \
-  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-win-bionic.tar.gz \
-  && [ "$(printf '567e615322ba1b257ff9f3fc87d34ede53f0f88f200f6322ecb79e86b1d9d757 depends-v1.0.1-win-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-win-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
-  && tar xzf depends-v1.0.1-win-bionic.tar.gz \
+  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-lin-bionic.tar.gz \
+  && [ "$(printf '17cb530527d00b0e65851b1c9e6497d550556490d07e839379cddbb4aebe6622 depends-v1.0.1-lin-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-lin-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
+  && tar xzf depends-v1.0.1-lin-bionic.tar.gz \
   && mv depends/ $DEPENDS \
-  && rm depends-v1.0.1-win-bionic.tar.gz
+  && rm depends-v1.0.1-lin-bionic.tar.gz
 
 WORKDIR /opt/scalaris-project/scalaris
 
