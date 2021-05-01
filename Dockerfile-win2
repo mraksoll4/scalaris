@@ -41,7 +41,7 @@ RUN mkdir -p $TEMP \
   && mv depends/ $DEPENDS \
   && rm depends-v1.0.1-win-bionic.tar.gz
 
-WORKDIR /opt/scalaris-project/dist
+WORKDIR /opt/scalaris-project/scalaris
 
 # Port, RPC, Test Port, Test RPC
 EXPOSE 42500 42510 41474 41419
