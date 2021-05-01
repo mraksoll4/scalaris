@@ -27,7 +27,7 @@ RUN apt update \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV PROJECTDIR=/opt/scalaris-project/scalaris
-ENV TEMP=/opt/scalaris-project/scalaris/depends
+ENV TEMP=/opt/scalaris-project/scalaris
 ENV DISTDIR=/opt/scalaris-project/dist
 ENV HOST=x86_64-apple-darwin14
 
@@ -38,8 +38,6 @@ RUN mkdir -p $TEMP \
   && [ "$(printf '0eaac2a0f2c30265774a200bda28b0c3c062ede7fcac3279f474e7853320413c depends-not-buildet-mac-1.0.1.tar.gz' | sha256sum -c)" = "depends-not-buildet-mac-1.0.1.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
   && tar xzf depends-not-buildet-mac-1.0.1.tar.gz \
   && rm depends-not-buildet-mac-1.0.1.tar.gz
-
-WORKDIR /opt/scalaris-project/scalaris
 
 # Port, RPC, Test Port, Test RPC
 EXPOSE 42500 42510 41474 41419
