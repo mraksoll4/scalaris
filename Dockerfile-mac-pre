@@ -1,0 +1,47 @@
+FROM ubuntu:bionic
+
+ARG cores=8
+ENV ecores=$cores
+
+RUN apt update \
+  && apt install -y --no-install-recommends \
+     software-properties-common \
+     ca-certificates \
+     wget curl git python vim \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN add-apt-repository ppa:bitcoin/bitcoin \
+  && apt update \
+  && apt install -y --no-install-recommends \
+     build-essential libtool autotools-dev bsdmainutils \
+     libevent-dev autoconf automake pkg-config libssl-dev \
+     libdb4.8-dev libdb4.8++-dev \
+     librsvg2-bin libtiff-tools bsdmainutils cmake imagemagick \
+     libcap-dev libz-dev libbz2-dev python-setuptools \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install llvm
+RUN apt update \
+  && apt install -y --no-install-recommends \
+     llvm \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV PROJECTDIR=/opt/scalaris-project/scalaris
+ENV TEMP=/opt/scalaris-project/scalaris/depends
+ENV DEPENDS=/proj/depends-cache
+ENV DISTDIR=/opt/scalaris-project/dist
+ENV HOST=x86_64-apple-darwin14
+
+# Download depends
+RUN mkdir -p $TEMP \
+  && cd $TEMP \
+  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-not-buildet--mac-1.0.1.tar.gz \
+  && [ "$(printf '0eaac2a0f2c30265774a200bda28b0c3c062ede7fcac3279f474e7853320413c depends-not-buildet--mac-1.0.1.tar.gz' | sha256sum -c)" = "depends-not-buildet--mac-1.0.1.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
+  && tar xzf depends-not-buildet--mac-1.0.1.tar.gz \
+  && mv depends/ $DEPENDS \
+  && rm depends-not-buildet--mac-1.0.1.tar.gz
+
+WORKDIR /opt/scalaris-project/scalaris
+
+# Port, RPC, Test Port, Test RPC
+EXPOSE 42500 42510 41474 41419
