@@ -33,7 +33,7 @@ ENV HOST=x86_64-pc-linux-gnu
 RUN mkdir -p $PROJECTDIR \
   && cd $PROJECTDIR \
   && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-lin-bionic.tar.gz \
-  && [ "$(printf '25b55f9d5628ee9719f89202007d15ec9af5a9f9cd0e348cf6270e9e4bf5e022 depends-v1.0.1-lin-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-lin-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
+  && [ "$(printf '17cb530527d00b0e65851b1c9e6497d550556490d07e839379cddbb4aebe6622 depends-v1.0.1-lin-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-lin-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
 
 # Copy source files
 COPY . $PROJECTDIR/

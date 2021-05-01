@@ -34,7 +34,7 @@ ENV HOST=x86_64-w64-mingw32
 RUN mkdir -p $PROJECTDIR \
   && cd $PROJECTDIR \
   && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-win-bionic.tar.gz \
-  && [ "$(printf '8ff9381acafd93d49619dffa9e462a3e2cc895f500562d8ac0420d40563b965d depends-v1.0.1-win-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-win-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
+  && [ "$(printf '567e615322ba1b257ff9f3fc87d34ede53f0f88f200f6322ecb79e86b1d9d757 depends-v1.0.1-win-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-win-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1)
 
 # Copy source files
 COPY . $PROJECTDIR/
