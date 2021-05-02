@@ -35,11 +35,11 @@ ENV HOST=x86_64-apple-darwin14
 # Download depends
 RUN mkdir -p $TEMP \
   && cd $TEMP \
-  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-v1.0.1-mac-bionic.tar.gz \
-  && [ "$(printf '9114cae2b514cd5d44692384a5b7564174196fde6399b3bb9a26fba7c3fcb312 depends-v1.0.1-mac-bionic.tar.gz' | sha256sum -c)" = "depends-v1.0.1-mac-bionic.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
-  && tar xzf depends-v1.0.1-mac-bionic.tar.gz \
+  && wget -nv https://github.com/mraksoll4/docker-build-depends/releases/download/v1.0.1/depends-mac-v1.0.1.tar.gz \
+  && [ "$(printf '8793b788bec5e0b8c0c39ed25c5e2b90a745d0ea7fdec3f3a5d648ec62647861 depends-mac-v1.0.1.tar.gz' | sha256sum -c)" = "depends-mac-v1.0.1.tar.gz: OK" ] || $(echo "depends checksum failed"; exit 1) \
+  && tar xzf depends-mac-v1.0.1.tar.gz \
   && mv depends/ $DEPENDS \
-  && rm depends-v1.0.1-mac-bionic.tar.gz
+  && rm depends-mac-v1.0.1.tar.gz
 
 WORKDIR /opt/scalaris-project/scalaris
 
